@@ -41,8 +41,8 @@ jobs:
 
     # Upload the JaCoCo code coverage report
     - name: Archive Code Coverage Report
-    if: always()  # Run this step even if previous steps fail
-    uses: actions/upload-artifact@v3
-    with:
-      name: coverage-report
-      path: target/site/jacoco/
+      if: always()  # Run this step even if previous steps fail
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: target/site/jacoco/
