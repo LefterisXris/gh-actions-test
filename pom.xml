@@ -51,12 +51,6 @@
          <scope>test</scope>
       </dependency>
 
-      <!-- Spring Boot Starter Web -->
-      <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-web</artifactId>
-      </dependency>
-
       <!-- Spring Boot Starter Security -->
       <dependency>
          <groupId>org.springframework.boot</groupId>
@@ -79,13 +73,6 @@
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-thymeleaf</artifactId>
-      </dependency>
-
-      <!-- Spring Boot Starter Test (for larger test suite) -->
-      <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-test</artifactId>
-         <scope>test</scope>
       </dependency>
 
       <!-- Apache Commons IO -->

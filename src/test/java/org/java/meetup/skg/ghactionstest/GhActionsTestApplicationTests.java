@@ -14,7 +14,7 @@ class GhActionsTestApplicationTests {
    @Test
    void contextLoads() {
       var msg = welcomeMessageService.getWelcomeMessage("Test");
-      Assertions.assertEquals(new WelcomeMessage("Test"), msg);
+      Assertions.assertEquals(new WelcomeMessage("Updated: Test"), msg);
    }
 
 }
