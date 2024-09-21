@@ -26,7 +26,14 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    
+
+    # Caching Mechanism
+    - name: Cache local Maven repository
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+
     - name: Build with Maven
       run: mvn -B -ntp clean install
 
@@ -40,7 +47,7 @@ jobs:
     # Upload the JaCoCo code coverage report
     - name: Archive Code Coverage Report
       if: always()  # Run this step even if previous steps fail
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4.4.0
       with:
         name: coverage-report
         path: target/site/jacoco/
