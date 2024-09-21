@@ -17,6 +17,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
 
     steps:
     - uses: actions/checkout@v4
@@ -55,8 +57,14 @@ jobs:
         path: target/site/jacoco/
 
     - name: Add coverage to PR
+      id: jacoco
       uses: madrapps/jacoco-report@v1.7.1
       with:
         paths: |
           target/site/jacoco/jacoco.xml
         token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Get the Coverage info
+      run: |
+        echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
+        echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
