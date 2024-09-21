@@ -5,4 +5,8 @@ public interface WelcomeMessageService {
    default WelcomeMessage getWelcomeMessage(String msg) {
       return new WelcomeMessage("Updated: " + msg);
    }
+
+   default WelcomeMessage getWelcomeMessage2(String msg) {
+      return new WelcomeMessage("Updated2: " + msg);
+   }
 }
