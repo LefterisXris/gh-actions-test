@@ -10,7 +10,6 @@ name: Java CI with Maven + Tests Artifact
 
 on:
   push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
