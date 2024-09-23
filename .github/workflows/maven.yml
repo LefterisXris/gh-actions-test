@@ -40,6 +40,11 @@ jobs:
 #        restore-keys: |
 #          ${{ runner.os }}-maven-
 
+    - name: Set Database Secrets
+      run: |
+        sed -i 's/##db.username##/${{ secrets.DB_USERNAME }}/g' config/application.yaml
+        sed -i 's/##db.password##/${{ secrets.DB_PASSWORD }}/g' config/application.yaml
+
     - name: Build with Maven
       run: mvn -B -ntp clean install
 
@@ -82,8 +87,3 @@ jobs:
       with:
         script: |
           core.setFailed('Overall coverage is less than 70%!')
-
-    - name: Set Database Secrets
-      run: |
-        sed -i 's/##db.username##/${{ secrets.DB_USERNAME }}/g' config/application.yaml
-        sed -i 's/##db.password##/${{ secrets.DB_PASSWORD }}/g' config/application.yaml
