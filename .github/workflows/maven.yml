@@ -16,13 +16,14 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
     strategy:
       matrix:
         java-version: [17, 19]
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
@@ -66,7 +67,7 @@ jobs:
       if: always()  # Run this step even if previous steps fail
       uses: actions/upload-artifact@v4.4.0
       with:
-        name: coverage-report${{ matrix.java-version }}
+        name: coverage-report-${{ matrix.java-version }}
         path: target/site/jacoco/
 
     - name: Add coverage to PR
