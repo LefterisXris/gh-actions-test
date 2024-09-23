@@ -59,7 +59,7 @@ jobs:
       if: always() # Always run even if the build fails
       uses: actions/upload-artifact@v4.4.0
       with:
-        name: test-reports-${{ matrix.java-version }}
+        name: ${{ matrix.os }}-jdk_${{ matrix.java-version }}-test-reports
         path: target/surefire-reports/
 
     # Upload the JaCoCo code coverage report
@@ -67,7 +67,7 @@ jobs:
       if: always()  # Run this step even if previous steps fail
       uses: actions/upload-artifact@v4.4.0
       with:
-        name: coverage-report-${{ matrix.java-version }}
+        name: ${{ matrix.os }}-jdk_${{ matrix.java-version }}-coverage-report
         path: target/site/jacoco/
 
     - name: Add coverage to PR
