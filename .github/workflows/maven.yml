@@ -20,14 +20,17 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+    strategy:
+      matrix:
+        java-version: [17, 19]
 
     steps:
     - uses: actions/checkout@v4
     
-    - name: Set up JDK 17
+    - name: Set up JDK ${{ matrix.java-version }}
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: ${{ matrix.java-version }}
         distribution: 'temurin'
         cache: maven
 
