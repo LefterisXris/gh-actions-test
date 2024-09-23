@@ -70,6 +70,13 @@ jobs:
         name: ${{ matrix.os }}-jdk_${{ matrix.java-version }}-coverage-report
         path: target/site/jacoco/
 
+    - name: Build Docker image
+      run: docker build -t ghcr.io/lefterisxris/gh_actions_test:latest .
+
+    # Push Docker images to GitHub Container Registry
+    - name: Push Docker image to GHCR
+      run: docker push ghcr.io/lefterisxris/gh_actions_test:latest
+
     - name: Add coverage to PR
       id: jacoco
       uses: madrapps/jacoco-report@v1.7.1
