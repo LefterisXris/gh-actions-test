@@ -50,8 +50,8 @@ jobs:
 
     - name: Set Database Secrets
       run: |
-        sed -i 's/##db.username##/${{ secrets.DB_USERNAME }}/g' config/application.yaml
-        sed -i 's/##db.password##/${{ secrets.DB_PASSWORD }}/g' config/application.yaml
+        sed -i 's/##db.username##/${{ secrets.DB_USERNAME }}/g' src/main/resources/application.yaml
+        sed -i 's/##db.password##/${{ secrets.DB_PASSWORD }}/g' src/main/resources/application.yaml
 
     - name: Build with Maven
       run: mvn -B -ntp clean install
