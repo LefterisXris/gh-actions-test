@@ -1,5 +1,0 @@
-# DB Configuration
-spring:
-  datasource:
-    username: ##db.username##
-    password: ##db.password##
