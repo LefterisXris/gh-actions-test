@@ -130,23 +130,19 @@ jobs:
         with:
           name: app-executables
 
-      # Create Draft Release
       - name: Create Draft Release
-        id: create_release
-        uses: actions/create-release@v1
+        uses: actions/github-script@v7.0.1
         with:
-          tag_name: ${{ github.sha }}  # Use the commit SHA as the tag name (or customize)
-          release_name: "Draft Release for PR #${{ github.event.pull_request.number }}"
-          draft: true
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: process.env.TAG_NAME,
+              name: `Draft Release - ${process.env.TAG_NAME}`,
+              draft: true,
+              prerelease: false
+            });
 
-      # Step 4: Upload artifact to the release
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./target/
-          asset_name: executables-artifact.zip
-          asset_content_type: application/zip
+            core.setOutput('upload_url', response.data.upload_url);
+        env:
+          TAG_NAME: ${{ github.sha }}
