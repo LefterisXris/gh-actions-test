@@ -1,0 +1,18 @@
+name: "Word Search Action"
+description: "Searches for a specific word in all source code files and fails the build if found."
+author: "Your Name"
+
+inputs:
+  word:
+    description: "The word to search for in the source code."
+    required: true
+    default: "todo"
+
+runs:
+  using: "composite"
+  steps:
+    - run: ./word-search.sh
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      with:
+        word: ${{ inputs.word }}
