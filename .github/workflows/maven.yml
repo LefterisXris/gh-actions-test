@@ -149,3 +149,5 @@ jobs:
         with:
           files: app-executables
           body: "Draft release after so much good work!"
+          draft: true
+          tag_name: ${{ github.sha }}
