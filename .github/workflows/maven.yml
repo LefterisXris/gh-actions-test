@@ -143,11 +143,21 @@ jobs:
         uses: actions/download-artifact@v4.1.8
         with:
           name: app-executables
+          path: ./downloads
 
       - name: Create Draft Release
         uses: softprops/action-gh-release@v2.0.8
         with:
-          files: app-executables
-          body: "Draft release after so much good work!"
+          files: ./downloads/**
+          name: "Draft release after so much good work!"
+          body: |
+            # The anticipated Release is here! :lobster:
+            
+            ## Changelog:
+            - Feature 1: Added support for X
+            - Feature 2: Improved performance for Y
+            - Bugfix: Resolved issue with Z
+            
+            Thank you for your contributions!
           draft: true
           tag_name: ${{ github.sha }}
