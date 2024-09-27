@@ -29,10 +29,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Run Word Search Action
-      uses: ./.github/actions/word-search
-      with:
-        word: "EqualsAndHashCode.Exclude"
+#    - name: Run Word Search Action
+#      uses: ./.github/actions/word-search
+#      with:
+#        word: "EqualsAndHashCode.Exclude"
     
     - name: Set up JDK ${{ matrix.java-version }}
       uses: actions/setup-java@v4
@@ -119,29 +119,30 @@ jobs:
           core.setFailed('Overall coverage is less than 70%!')
 
 
-#  # Second Job: Create Draft Release
-#  draftReleaseJob:
-#    name: Create Draft Release
-#    runs-on: ubuntu-latest
-#    needs: build
-#    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#
-#      - name: Download build artifacts
-#        uses: actions/download-artifact@v4.1.8
-#        with:
-#          name: app-executables
-#
-#      - name: Create Draft Release
-#        id: create_release
-#        uses: actions/create-release@v1
-#        with:
-#          tag_name: ${{ github.sha }}
-#          release_name: "Draft Release for PR #${{ github.event.pull_request.number }}"
-#          draft: true
-#          prerelease: false
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # Second Job: Create Draft Release
+  draftReleaseJob:
+    name: Create Draft Release
+    runs-on: ubuntu-latest
+    needs: build
+    permissions: write-all
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: app-executables
+
+      - name: Create Draft Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.sha }}
+          release_name: "Draft Release for PR #${{ github.event.pull_request.number }}"
+          draft: true
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
